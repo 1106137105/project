@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import {Image ,View,Text,StyleSheet, ScrollView,Animated,Dimensions} from 'react-native';
 import {CustomHeader} from '../index';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const {width,height} = Dimensions.get('window');
 
@@ -52,8 +53,9 @@ export class TeacherScreen extends Component{
   render(){
   console.disableYellowBox = true;
   return (
+    <SafeAreaView style={{flex:1 ,backgroundColor:'#455a64'}}>
+    <CustomHeader title="師資陣容" isHome={true} navigation={this.props.navigation}/>
     <View style={styles.container}>
-      <CustomHeader title="師資陣容" isHome={true} navigation={this.props.navigation}/>
       <Animated.ScrollView
       pagingEnabled
       scrollEventThrottle={16}
@@ -66,6 +68,7 @@ export class TeacherScreen extends Component{
         {teacher_list.map((item,i) => this._renderItem(item,i))}
       </Animated.ScrollView>
     </View>
+    </SafeAreaView>
   )
   }
 
@@ -96,7 +99,6 @@ const styles = StyleSheet.create({
     backgroundColor:'#455a64',
     alignItems:'center',
     justifyContent:'center',
-    marginTop:50
   },
   scrollviewcontainer:{
     alignItems:'center',

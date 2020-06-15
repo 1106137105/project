@@ -121,7 +121,7 @@ function TabNavigator3() {
         inactiveTintColor: 'black',
       }}
     >
-      <Tab2.Screen name="Hope" component={FeatureScreen} />
+      <Tab2.Screen name="Hope" component={FeatureStack} />
       <Tab2.Screen name="Map" component={Mapscreen} />
     </Tab2.Navigator>
   )
@@ -262,6 +262,31 @@ function Tab4Navigator() {
   )
 }
 
+function Tab5Navigator() {
+  return (
+    <Tab4.Navigator
+      initialRouteName="News"
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName;
+          if (route.name === 'News') {
+            iconName = focused
+              ? IMAGE.ICON_BRIEF_WHITE
+              : IMAGE.ICON_BRIEF
+          } 
+          // You can return any component that you like here!
+          return <Image source={iconName} style={{ width: 20, height: 20, resizeMode: 'contain' }} />;
+        },
+      })}
+      tabBarOptions={{
+        activeTintColor: 'red',
+        inactiveTintColor: 'black',
+      }}
+    >
+      <Tab4.Screen name="News" component={NewsScreen} />
+    </Tab4.Navigator>
+  )
+}
 const Drawer = createDrawerNavigator();
 function DrawerNavigator1({ navigation }) {
   return (
@@ -270,6 +295,7 @@ function DrawerNavigator1({ navigation }) {
       <Drawer.Screen name="Ic department introduce" component={Tab2Navigator} />
       <Drawer.Screen name="Course" component={Tab3Navigator} />
       <Drawer.Screen name="Union" component={Tab4Navigator} />
+      <Drawer.Screen name="News" component={Tab5Navigator} />
     </Drawer.Navigator>
   )
 }
@@ -280,6 +306,7 @@ function DrawerNavigator2({ navigation }) {
       <Drawer.Screen name="Ic department introduce" component={Tab2Navigator} />
       <Drawer.Screen name="Course" component={Tab3Navigator} />
       <Drawer.Screen name="Union" component={Tab4Navigator} />
+      <Drawer.Screen name="News" component={Tab5Navigator} />
     </Drawer.Navigator>
   )
 }
@@ -290,6 +317,7 @@ function DrawerNavigator3({ navigation }) {
       <Drawer.Screen name="Ic department introduce" component={Tab2Navigator} />
       <Drawer.Screen name="Course" component={Tab3Navigator} />
       <Drawer.Screen name="Union" component={Tab4Navigator} />
+      <Drawer.Screen name="News" component={Tab5Navigator} />
     </Drawer.Navigator>
   )
 }
@@ -300,6 +328,7 @@ function DrawerNavigator4({ navigation }) {
       <Drawer.Screen name="Ic department introduce" component={Tab2Navigator} />
       <Drawer.Screen name="Course" component={Tab3Navigator} />
       <Drawer.Screen name="Union" component={Tab4Navigator} />
+      <Drawer.Screen name="News" component={Tab5Navigator} />
     </Drawer.Navigator>
   )
 }

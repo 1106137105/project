@@ -31,12 +31,12 @@ export class CustomDrawerContent extends Component{
                 }}>
                   <Text>Union</Text>
                 </TouchableOpacity>
-                </ScrollView>
                 <TouchableOpacity style={{marginTop:20}} onPress={() =>{
-                  this.props.navigation.navigate('Login')
+                  this.props.navigation.navigate('News')
                 }}>
-                  <Text>Log out</Text>
+                  <Text>News</Text>
                 </TouchableOpacity>
+                </ScrollView>
             </SafeAreaView>
           )
     }
