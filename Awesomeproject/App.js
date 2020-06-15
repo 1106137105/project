@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Image, DeviceEventEmitter } from 'react-native';
+import { Image, DeviceEventEmitter, PermissionsAndroid, Platform, StatusBar, Text, Alert } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -12,7 +12,7 @@ import { IMAGE } from './src/constants/Image';
 
 
 import Kontakt, { KontaktModule } from 'react-native-kontaktio';
-
+import KalmanFilter from 'kalmanjs';
 
 const Tab = createBottomTabNavigator();
 const Tab2 = createBottomTabNavigator();
@@ -191,7 +191,7 @@ function DrawerNavigator({ navigation }) {
 }
 
 const StackApp = createStackNavigator()
-
+const kf = new KalmanFilter();
 //////////beacon//////////
 const {
   connect,
@@ -226,8 +226,40 @@ const region1 = {
 const region2 = {
   identifier: 'USBeacon',
   uuid: '1d5f5874-9406-4d00-9e6f-d519d307d986',
-  major: 1,
+  major: 2,
+  minor: 1
+};
+const region3 = {
+  identifier: 'USBeacon',
+  uuid: '1d5f5874-9406-4d00-9e6f-d519d307d986',
+  major: 2,
   minor: 2
+};
+var power;
+
+const requestLocationPermission = async () => {
+  try {
+    const granted = await PermissionsAndroid.request(
+      PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION,
+      {
+        title: 'Location Permission',
+        message:
+          'This example app needs to access your location in order to use bluetooth beacons.',
+        buttonNeutral: 'Ask Me Later',
+        buttonNegative: 'Cancel',
+        buttonPositive: 'OK',
+      },
+    );
+    if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+      return true;
+    } else {
+      // permission denied
+      return false;
+    }
+  } catch (err) {
+    console.warn(err);
+    return false;
+  }
 };
 
 export default class App extends Component {
@@ -239,9 +271,9 @@ export default class App extends Component {
   };
 
   componentDidMount() {
-
-    connect()
-      .then(() => setBeaconRegions([region1, region2]))
+    requestLocationPermission()
+      .then(()=>connect())
+      .then(() => setBeaconRegions([region1, region2, region3]))
       .then(() => setEddystoneNamespace())
       .then(() => startScanning())
       .catch(error => console.log('error', error));
@@ -262,16 +294,12 @@ export default class App extends Component {
       ({ beacons: updatedBeacons, region }) => {
         console.log('beaconsDidUpdate', updatedBeacons, region);
         ////rssi轉換成距離(公尺)////
-        power = Math.pow(10, (Math.abs(updatedBeacons[0].rssi) - 60) / (10 * 2));
+        power = kf.filter(Math.pow(10, (Math.abs(updatedBeacons[0].rssi) - 60) / (10 * 2)));
         console.log('距離為: ' + power + '公尺');
         ////////////////////////
         if (region.minor === region1.minor && updatedBeacons[0].uuid === region1.uuid) {
-          console.log("媽的")
         } else if (region.minor === region2.minor && updatedBeacons[0].uuid === region2.uuid && power < 3) {
         }
-
-
-
         const { beacons } = this.state;
         updatedBeacons.forEach(updatedBeacon => {
           const index = beacons.findIndex(beacon =>
@@ -292,10 +320,16 @@ export default class App extends Component {
     DeviceEventEmitter.addListener(
       'regionDidEnter',
       ({ region }) => {
-        //如果進入的區域的minor=beacon_1的minor
-        if (region.minor === region1.minor) {
+        if (region.major === region1.major && region.minor === region1.minor) { //如果進入候車區
+          Alert.alert(
+               '你好',
+               '你來到候車區了',
+               [{ text: '好欸', onPress: () => console.log('bye_1 Pressed') }],
+               { cancelable: false },
+             );
+        } else if (region.major === region2.major && region.minor === region2.minor) { //如果進入
 
-        } else if (region.minor === region2.minor) { //如果進入的區域的minor=beacon_2的minor
+        } else if (region.major === region3.major && region.minor === region3.minor) { //如果進入
 
         }
         console.log('regionDidEnter', region);
