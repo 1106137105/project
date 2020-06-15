@@ -38,6 +38,7 @@ export class NewsScreen extends Component{
       }
         return (
           <View style={{flex: 1, paddingTop:50}}>
+            <CustomHeader title="首頁" isHome={true} navigation={this.props.navigation}/>
           <FlatList
             data={this.state.dataSource}
             renderItem={({item}) => {

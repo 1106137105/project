@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
-import { Image, DeviceEventEmitter, PermissionsAndroid, Platform, StatusBar, Text, Alert } from 'react-native';
+import { Image, DeviceEventEmitter, PermissionsAndroid } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import { CustomDrawerContent } from './src';
-import { TeacherScreen, WishScreen, GoalScreen, FeatureScreen, BriefScreen, MemberScreen, EventScreen, Feature_1Screen, Feature_2Screen, Feature_3Screen, Feature_4Screen, Feature_5Screen, Mapscreen, ClassScreen } from './src/tab';
+import { TeacherScreen, WishScreen, GoalScreen, FeatureScreen, BriefScreen, MemberScreen, EventScreen, Feature_1Screen, Feature_2Screen, Feature_3Screen, Feature_4Screen, Feature_5Screen, Mapscreen, ClassScreen, NewsScreen } from './src/tab';
 import { LoginScreen, ResgisterScreen } from './src/auth';
 import { IMAGE } from './src/constants/Image';
-
 
 import Kontakt, { KontaktModule } from 'react-native-kontaktio';
 import KalmanFilter from 'kalmanjs';
@@ -37,7 +36,7 @@ function FeatureStack() {
   )
 }
 
-function TabNavigator() {
+function TabNavigator1() {
   return (
     <Tab2.Navigator
       screenOptions={({ route }) => ({
@@ -52,10 +51,35 @@ function TabNavigator() {
               ? IMAGE.ICON_CLASS_WHITE
               : IMAGE.ICON_CLASS
           }
-          else if (route.name === 'Member') {
+
+          // You can return any component that you like here!
+          return <Image source={iconName} style={{ width: 20, height: 20, resizeMode: 'contain' }} />;
+        },
+      })}
+      tabBarOptions={{
+        activeTintColor: 'red',
+        inactiveTintColor: 'black',
+      }}
+    >
+      <Tab2.Screen name="Hope" component={NewsScreen} />
+      <Tab2.Screen name="Map" component={Mapscreen} />
+    </Tab2.Navigator>
+  )
+}
+function TabNavigator2() {
+  return (
+    <Tab2.Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName;
+          if (route.name === 'Hope') {
             iconName = focused
-              ? IMAGE.ICON_TEACHER_WHITE
-              : IMAGE.ICON_TEACHER
+              ? IMAGE.ICON_HOME
+              : IMAGE.ICON_HOME_BLACK
+          } else if (route.name === 'Map') {
+            iconName = focused
+              ? IMAGE.ICON_CLASS_WHITE
+              : IMAGE.ICON_CLASS
           }
 
           // You can return any component that you like here!
@@ -67,9 +91,68 @@ function TabNavigator() {
         inactiveTintColor: 'black',
       }}
     >
-      <Tab2.Screen name="Hope" component={WishScreen} />
+      <Tab2.Screen name="Hope" component={TeacherScreen} />
       <Tab2.Screen name="Map" component={Mapscreen} />
-      <Tab2.Screen name="Member" component={LoginScreen} />
+    </Tab2.Navigator>
+  )
+}
+function TabNavigator3() {
+  return (
+    <Tab2.Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName;
+          if (route.name === 'Hope') {
+            iconName = focused
+              ? IMAGE.ICON_HOME
+              : IMAGE.ICON_HOME_BLACK
+          } else if (route.name === 'Map') {
+            iconName = focused
+              ? IMAGE.ICON_CLASS_WHITE
+              : IMAGE.ICON_CLASS
+          }
+
+          // You can return any component that you like here!
+          return <Image source={iconName} style={{ width: 20, height: 20, resizeMode: 'contain' }} />;
+        },
+      })}
+      tabBarOptions={{
+        activeTintColor: 'red',
+        inactiveTintColor: 'black',
+      }}
+    >
+      <Tab2.Screen name="Hope" component={FeatureScreen} />
+      <Tab2.Screen name="Map" component={Mapscreen} />
+    </Tab2.Navigator>
+  )
+}
+function TabNavigator4() {
+  return (
+    <Tab2.Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName;
+          if (route.name === 'Hope') {
+            iconName = focused
+              ? IMAGE.ICON_HOME
+              : IMAGE.ICON_HOME_BLACK
+          } else if (route.name === 'Map') {
+            iconName = focused
+              ? IMAGE.ICON_CLASS_WHITE
+              : IMAGE.ICON_CLASS
+          }
+
+          // You can return any component that you like here!
+          return <Image source={iconName} style={{ width: 20, height: 20, resizeMode: 'contain' }} />;
+        },
+      })}
+      tabBarOptions={{
+        activeTintColor: 'red',
+        inactiveTintColor: 'black',
+      }}
+    >
+      <Tab2.Screen name="Hope" component={EventScreen} />
+      <Tab2.Screen name="Map" component={Mapscreen} />
     </Tab2.Navigator>
   )
 }
@@ -77,6 +160,7 @@ function TabNavigator() {
 function Tab2Navigator() {
   return (
     <Tab2.Navigator
+      initialRouteName="Teacher"
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
@@ -144,6 +228,7 @@ function Tab3Navigator() {
 function Tab4Navigator() {
   return (
     <Tab4.Navigator
+      initialRouteName="Brief"
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
@@ -178,11 +263,40 @@ function Tab4Navigator() {
 }
 
 const Drawer = createDrawerNavigator();
-
-function DrawerNavigator({ navigation }) {
+function DrawerNavigator1({ navigation }) {
   return (
     <Drawer.Navigator initialRouteName="MenuTab" drawerContent={() => <CustomDrawerContent navigation={navigation} />}>
-      <Drawer.Screen name="MenuTab" component={TabNavigator} />
+      <Drawer.Screen name="MenuTab" component={TabNavigator4} />
+      <Drawer.Screen name="Ic department introduce" component={Tab2Navigator} />
+      <Drawer.Screen name="Course" component={Tab3Navigator} />
+      <Drawer.Screen name="Union" component={Tab4Navigator} />
+    </Drawer.Navigator>
+  )
+}
+function DrawerNavigator2({ navigation }) {
+  return (
+    <Drawer.Navigator initialRouteName="MenuTab" drawerContent={() => <CustomDrawerContent navigation={navigation} />}>
+      <Drawer.Screen name="MenuTab" component={TabNavigator2} />
+      <Drawer.Screen name="Ic department introduce" component={Tab2Navigator} />
+      <Drawer.Screen name="Course" component={Tab3Navigator} />
+      <Drawer.Screen name="Union" component={Tab4Navigator} />
+    </Drawer.Navigator>
+  )
+}
+function DrawerNavigator3({ navigation }) {
+  return (
+    <Drawer.Navigator initialRouteName="MenuTab" drawerContent={() => <CustomDrawerContent navigation={navigation} />}>
+      <Drawer.Screen name="MenuTab" component={TabNavigator3} />
+      <Drawer.Screen name="Ic department introduce" component={Tab2Navigator} />
+      <Drawer.Screen name="Course" component={Tab3Navigator} />
+      <Drawer.Screen name="Union" component={Tab4Navigator} />
+    </Drawer.Navigator>
+  )
+}
+function DrawerNavigator4({ navigation }) {
+  return (
+    <Drawer.Navigator initialRouteName="MenuTab" drawerContent={() => <CustomDrawerContent navigation={navigation} />}>
+      <Drawer.Screen name="MenuTab" component={TabNavigator1} />
       <Drawer.Screen name="Ic department introduce" component={Tab2Navigator} />
       <Drawer.Screen name="Course" component={Tab3Navigator} />
       <Drawer.Screen name="Union" component={Tab4Navigator} />
@@ -191,7 +305,7 @@ function DrawerNavigator({ navigation }) {
 }
 
 const StackApp = createStackNavigator()
-const kf = new KalmanFilter();
+
 //////////beacon//////////
 const {
   connect,
@@ -215,27 +329,29 @@ const {
   monitoringEnabled,
   monitoringSyncInterval,
 } = Kontakt;
-
+const kf = new KalmanFilter();
+var power;
+var tmp = 0;
 //區域判斷式
 const region1 = {
   identifier: 'USBeacon',
   uuid: '1d5f5874-9406-4d00-9e6f-d519d307d986',
-  major: 1,
+  major: 2,
   minor: 1,
 };
 const region2 = {
   identifier: 'USBeacon',
   uuid: '1d5f5874-9406-4d00-9e6f-d519d307d986',
-  major: 2,
+  major: 3,
   minor: 1
 };
 const region3 = {
   identifier: 'USBeacon',
   uuid: '1d5f5874-9406-4d00-9e6f-d519d307d986',
-  major: 2,
+  major: 3,
   minor: 2
 };
-var power;
+
 
 const requestLocationPermission = async () => {
   try {
@@ -272,7 +388,7 @@ export default class App extends Component {
 
   componentDidMount() {
     requestLocationPermission()
-      .then(()=>connect())
+      .then(() => connect())
       .then(() => setBeaconRegions([region1, region2, region3]))
       .then(() => setEddystoneNamespace())
       .then(() => startScanning())
@@ -297,8 +413,12 @@ export default class App extends Component {
         power = kf.filter(Math.pow(10, (Math.abs(updatedBeacons[0].rssi) - 60) / (10 * 2)));
         console.log('距離為: ' + power + '公尺');
         ////////////////////////
-        if (region.minor === region1.minor && updatedBeacons[0].uuid === region1.uuid) {
-        } else if (region.minor === region2.minor && updatedBeacons[0].uuid === region2.uuid && power < 3) {
+        if (region.major === region1.major && region.minor === region1.minor && updatedBeacons[0].uuid === region1.uuid) {
+          tmp
+        } else if (region.major === region2.major && region.minor === region2.minor && updatedBeacons[0].uuid === region2.uuid) {
+
+        }else if (region.major === region3.major && region.minor === region3.minor && updatedBeacons[0].uuid === region3.uuid) {
+
         }
         const { beacons } = this.state;
         updatedBeacons.forEach(updatedBeacon => {
@@ -321,16 +441,14 @@ export default class App extends Component {
       'regionDidEnter',
       ({ region }) => {
         if (region.major === region1.major && region.minor === region1.minor) { //如果進入候車區
-          Alert.alert(
-               '你好',
-               '你來到候車區了',
-               [{ text: '好欸', onPress: () => console.log('bye_1 Pressed') }],
-               { cancelable: false },
-             );
+          tmp=1
+          console.log("feature")
         } else if (region.major === region2.major && region.minor === region2.minor) { //如果進入
-
+          tmp=2
+          console.log("brief")
         } else if (region.major === region3.major && region.minor === region3.minor) { //如果進入
-
+          tmp=3
+          console.log("teacher")
         }
         console.log('regionDidEnter', region);
       }
@@ -341,12 +459,7 @@ export default class App extends Component {
       ({ region }) => {
         //如果離開的區域的minor=beacon_1的minor
         if (region.minor === region1.minor) {
-          // Alert.alert(
-          //   '掰掰啦1',
-          //   '你離開beacon1_111的區域了',
-          //   [{ text: '好欸1', onPress: () => console.log('bye_1 Pressed') }],
-          //   { cancelable: false },
-          // );
+
         } else if (region.minor === region2.minor) {   //如果離開的區域的minor=beacon_1的minor
 
         }
@@ -369,33 +482,120 @@ export default class App extends Component {
     (b1.major === b2.major) &&
     (b1.minor === b2.minor)
   );
-
-
-  render() {
+      render() {
     console.disableYellowBox = true;
-    return(
-    <>
-      <NavigationContainer>
-        <StackApp.Navigator initialRouteName="HomeApp">
-          <StackApp.Screen name="HomeApp" component={DrawerNavigator} options={navOptionHandler}></StackApp.Screen>
-          <StackApp.Screen name="Login" component={LoginScreen} options={navOptionHandler}></StackApp.Screen>
-          <StackApp.Screen name="Resgister" component={ResgisterScreen} options={navOptionHandler}></StackApp.Screen>
-        </StackApp.Navigator>
-      </NavigationContainer>
-    </>
-    )
+    switch (tmp) {
+      case 1:
+        return (
+          <>
+            <NavigationContainer>
+              <StackApp.Navigator initialRouteName="HomeApp">
+                <StackApp.Screen name="HomeApp" component={DrawerNavigator1} options={navOptionHandler}></StackApp.Screen>
+                <StackApp.Screen name="Login" component={LoginScreen} options={navOptionHandler}></StackApp.Screen>
+                <StackApp.Screen name="Resgister" component={ResgisterScreen} options={navOptionHandler}></StackApp.Screen>
+              </StackApp.Navigator>
+            </NavigationContainer>
+          </>
+        )
+        break;
+      case 2:
+        return (
+          <>
+            <NavigationContainer>
+              <StackApp.Navigator initialRouteName="HomeApp">
+                <StackApp.Screen name="HomeApp" component={DrawerNavigator2} options={navOptionHandler}></StackApp.Screen>
+                <StackApp.Screen name="Login" component={LoginScreen} options={navOptionHandler}></StackApp.Screen>
+                <StackApp.Screen name="Resgister" component={ResgisterScreen} options={navOptionHandler}></StackApp.Screen>
+              </StackApp.Navigator>
+            </NavigationContainer>
+
+          </>
+        )
+        break;
+      case 3:
+        return (
+          <>
+            <NavigationContainer>
+              <StackApp.Navigator initialRouteName="HomeApp">
+                <StackApp.Screen name="HomeApp" component={DrawerNavigator3} options={navOptionHandler}></StackApp.Screen>
+                <StackApp.Screen name="Login" component={LoginScreen} options={navOptionHandler}></StackApp.Screen>
+                <StackApp.Screen name="Resgister" component={ResgisterScreen} options={navOptionHandler}></StackApp.Screen>
+              </StackApp.Navigator>
+            </NavigationContainer>
+          </>
+        )
+        break;
+      default:
+        return (
+          <>
+            <NavigationContainer>
+              <StackApp.Navigator initialRouteName="HomeApp">
+                <StackApp.Screen name="HomeApp" component={DrawerNavigator4} options={navOptionHandler}></StackApp.Screen>
+                <StackApp.Screen name="Login" component={LoginScreen} options={navOptionHandler}></StackApp.Screen>
+                <StackApp.Screen name="Resgister" component={ResgisterScreen} options={navOptionHandler}></StackApp.Screen>
+              </StackApp.Navigator>
+            </NavigationContainer>
+          </>
+        )
+    }
   }
+  // render() {
+  //   console.disableYellowBox = true;
+  //   switch (tmp) {
+  //     case 1:
+  //       return (
+  //         <>
+  //           <NavigationContainer>
+  //             <FeatureStack></FeatureStack>
+  //           </NavigationContainer>
+  //         </>
+  //       )
+  //       break;
+  //     case 2:
+  //       return (
+  //         <>
+  //           <NavigationContainer>
+  //             <Tab4Navigator></Tab4Navigator>
+  //           </NavigationContainer>
+
+  //         </>
+  //       )
+  //       break;
+  //     case 3:
+  //       return (
+  //         <>
+  //           <NavigationContainer>
+  //             <Tab2Navigator></Tab2Navigator>
+  //           </NavigationContainer>
+  //         </>
+  //       )
+  //       break;
+  //     default:
+  //       return (
+  //         <>
+  //           <NavigationContainer>
+  //             <StackApp.Navigator initialRouteName="HomeApp">
+  //               <StackApp.Screen name="HomeApp" component={DrawerNavigator} options={navOptionHandler}></StackApp.Screen>
+  //               <StackApp.Screen name="Login" component={LoginScreen} options={navOptionHandler}></StackApp.Screen>
+  //               <StackApp.Screen name="Resgister" component={ResgisterScreen} options={navOptionHandler}></StackApp.Screen>
+  //             </StackApp.Navigator>
+  //           </NavigationContainer>
+  //         </>
+  //       )
+  //   }
+  // }
+  // render() {
+  //   console.disableYellowBox = true;
+  //   return (
+  //     <>
+  //       <NavigationContainer>
+  //         <StackApp.Navigator initialRouteName="HomeApp">
+  //           <StackApp.Screen name="HomeApp" component={DrawerNavigator} options={navOptionHandler}></StackApp.Screen>
+  //           <StackApp.Screen name="Login" component={LoginScreen} options={navOptionHandler}></StackApp.Screen>
+  //           <StackApp.Screen name="Resgister" component={ResgisterScreen} options={navOptionHandler}></StackApp.Screen>
+  //         </StackApp.Navigator>
+  //       </NavigationContainer>
+  //     </>
+  //   )
+  // }
 }
-//////////////beacon程式碼/////////////
-// export default function App() {
-//   console.disableYellowBox = true;
-//   return (
-//     <NavigationContainer>
-//     <StackApp.Navigator initialRouteName="HomeApp">
-//       <StackApp.Screen name="HomeApp" component={DrawerNavigator} options={navOptionHandler}></StackApp.Screen>
-//       <StackApp.Screen name="Login" component={LoginScreen} options={navOptionHandler}></StackApp.Screen>
-//       <StackApp.Screen name="Resgister" component={ResgisterScreen} options={navOptionHandler}></StackApp.Screen>
-//     </StackApp.Navigator>
-//     </NavigationContainer>
-//   )
-// }

@@ -1,6 +1,5 @@
 export * from './WishScreen';
 export * from './ClassScreen';
-export * from './TeacherScreen';
 export * from './GoalScreen';
 export * from './FeatureScreen';
 export * from './BriefScreen';
@@ -13,3 +12,4 @@ export * from './Feature_4Screen';
 export * from './Feature_5Screen';
 export * from './Mapscreen';
 export * from './NewsScreen';
+export * from './TeacherScreen'

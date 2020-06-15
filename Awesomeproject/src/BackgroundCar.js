@@ -20,7 +20,7 @@ export class BackgroundCar extends React.Component{
         const {images} = this.props
         const {selectedIndex} = this.state
         return(
-            <View style={{height:'100%',width:'100%'}}>
+            <View>
                 <ScrollView horizontal pagingEnabled>
                     {images.map( image => (
                         <Image 
@@ -45,8 +45,11 @@ export class BackgroundCar extends React.Component{
 
 const styles = StyleSheet.create({
     backgroundimage:{
-        height:'100%',
-        width: DEVICE_WIDTH,
+        flex:1,
+        justifyContent:'center',
+        alignItems:'center',
+        height:300,
+        width: DEVICE_WIDTH
 
     },
     circleDiv:{

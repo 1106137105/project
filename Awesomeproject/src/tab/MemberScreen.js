@@ -7,7 +7,7 @@ export class MemberScreen extends Component{
     render(){
         return (
             <SafeAreaView style={{ flex: 1 ,backgroundColor:'#455a64'}}>
-              <CustomHeader title="Member" isHome={true} navigation={this.props.navigation}/>
+              <CustomHeader title="會員簡介" isHome={true} navigation={this.props.navigation}/>
               <ScrollView style={{flex:1,marginLeft:15,marginRight:15}}>
                 <Text style={{color:'red',fontSize:25,marginTop:25,marginLeft:130}}>學會簡介</Text>
                 <Text style={{color:'#ffffff',marginTop:25}}>高雄港都資管神話，於公元2001年揭序曲，結合應用科技大學的靈魂而美麗。踏著科技浪潮，掌握資訊波動，綻放學習的元素與音符，精準地搭和著管理學院的樂章翩然舞動著。而時間所給的節奏，是一席永恆的物語，紮紮實實在歲月的流裡孕育著最頂尖的學子。堅忍勤奮的情操是固守傳承的接力棒；欣欣向榮的氣息，是延續文化的精神。循歷史的軌跡，勾勒出未來的軌道，背負著使命而翱翔。</Text>

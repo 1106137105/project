@@ -6,7 +6,7 @@ export class GoalScreen extends Component{
     render(){
         return (
             <SafeAreaView style={{ flex: 1,backgroundColor:'#455a64'}}>
-              <CustomHeader title="Goal" isHome={true} navigation={this.props.navigation}/>
+              <CustomHeader title="目標" isHome={true} navigation={this.props.navigation}/>
               <ScrollView style={{flex:1,marginLeft:15,marginRight:15}}>
                 <Text style={{color:'#4dd0e1',fontSize:25,marginTop:25,textAlign:'center'}}>教育目標</Text>
                 <Text style={{color:'#ffffff',marginTop:25,textAlign:'center'}}>大學部主要的定位為「培育學技合一的資管專業人才」。培育學技合一的專業人才，目的是使學生具備應有的理論基礎以及縮短學生能力與產業需求之間的差距，融合兩者的學習與訓練才足以因應產業發展所需。學生必須貫通專業領域的基本學理，同時還必須具備實踐與應用的能力，並且配合產業技術進步的現況。學技合一的發展目標十分適合技職學生以技能為導向的學習特性與發展定位。</Text>

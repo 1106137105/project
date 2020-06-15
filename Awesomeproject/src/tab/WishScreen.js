@@ -5,7 +5,7 @@ import {CustomHeader} from '../index';
 export class WishScreen extends Component{
     render(){
         return (
-            <SafeAreaView style={{ flex: 1 ,backgroundColor:'#ffffff'}}>
+            <SafeAreaView style={{ flex: 1 ,backgroundColor:'#455a64'}}>
               <CustomHeader title="願景" isHome={true} navigation={this.props.navigation}/>
               <ScrollView style={{flex:1,marginLeft:15,marginRight:15}}>
                 <Text style={styles.titlestyle}>簡介</Text>
@@ -46,7 +46,7 @@ export class WishScreen extends Component{
 
 const styles=StyleSheet.create({
   textstyle:{
-    color:'#000000',
+    color:'#fff',
     marginTop:15,
     textAlign:'center'
   },
